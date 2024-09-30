@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const VerDetalles = () => {
     const [tituloGasto, setTituloGasto] = useState('');
@@ -44,56 +45,68 @@ const VerDetalles = () => {
     };
 
     return (
-        <div className="card mb-4">
-            <div className="card-body">
-                <h5 className="card-title">Registrar Gasto</h5>
-                <form onSubmit={manejarEnvio}>
-                    <div className="mb-3">
-                        <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Título del Gasto"
-                            value={tituloGasto}
-                            onChange={(e) => setTituloGasto(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <input
-                            type="number"
-                            className="form-control"
-                            placeholder="Monto"
-                            value={monto}
-                            onChange={(e) => setMonto(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Pagador"
-                            value={pagador}
-                            onChange={(e) => setPagador(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div className="mb-3">
-                        <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Participantes (separados por comas)"
-                            value={participantes}
-                            onChange={(e) => setParticipantes(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <button type="submit" className="btn btn-success">Registrar Gasto</button>
-                </form>
+        <div className="container my-5">
+            <div className="card shadow-lg p-4">
+                <div className="card-body">
+                    <h3 className="card-title text-center mb-4">Registrar Gasto</h3>
+                    <form onSubmit={manejarEnvio}>
+                        <div className="mb-3">
+                            <label htmlFor="tituloGasto" className="form-label">Título del Gasto</label>
+                            <input
+                                type="text"
+                                id="tituloGasto"
+                                className="form-control"
+                                placeholder="Ej. Cena en restaurante"
+                                value={tituloGasto}
+                                onChange={(e) => setTituloGasto(e.target.value)}
+                                required
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="monto" className="form-label">Monto</label>
+                            <input
+                                type="number"
+                                id="monto"
+                                className="form-control"
+                                placeholder="Ej. 50000"
+                                value={monto}
+                                onChange={(e) => setMonto(e.target.value)}
+                                required
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="pagador" className="form-label">Pagador</label>
+                            <input
+                                type="text"
+                                id="pagador"
+                                className="form-control"
+                                placeholder="Nombre del pagador"
+                                value={pagador}
+                                onChange={(e) => setPagador(e.target.value)}
+                                required
+                            />
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="participantes" className="form-label">Participantes</label>
+                            <input
+                                type="text"
+                                id="participantes"
+                                className="form-control"
+                                placeholder="Emails separados por comas"
+                                value={participantes}
+                                onChange={(e) => setParticipantes(e.target.value)}
+                                required
+                            />
+                        </div>
+                        <div className="d-grid gap-2">
+                            <button type="submit" className="btn btn-success btn-lg">Registrar Gasto</button>
+                        </div>
+                    </form>
 
-                <div className="mt-3">
-                    <button className="btn btn-info me-2" onClick={verDetalles}>Ver Detalles</button>
-                    <button className="btn btn-warning" onClick={() => navigate('/balances')}>Ver Balances</button>
+                    <div className="mt-4 d-flex justify-content-between">
+                        <button className="btn btn-info me-2 btn-lg" onClick={verDetalles}>Ver Detalles</button>
+                        <button className="btn btn-warning btn-lg" onClick={() => navigate('/balances')}>Ver Balances</button>
+                    </div>
                 </div>
             </div>
         </div>

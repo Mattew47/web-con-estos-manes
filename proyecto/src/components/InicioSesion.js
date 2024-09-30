@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './InicioSesion.css';
 
 const InicioSesion = () => {
     const navigate = useNavigate(); 
@@ -18,20 +19,36 @@ const InicioSesion = () => {
     };
 
     return (
-        <div className="card mb-4">
-            <div className="card-body">
-                <h5 className="card-title">Iniciar Sesión</h5>
-                <form onSubmit={manejarEnvio}>
-                    <div className="mb-3">
-                        <input type="email" className="form-control" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-                    </div>
-                    <div className="mb-3">
-                        <input type="password" className="form-control" placeholder="Contraseña" value={contrasena} onChange={(e) => setContrasena(e.target.value)} required />
-                    </div>
-                    <button type="submit" className="btn btn-success">Iniciar Sesión</button>
-                </form>
-            </div>
-        </div>
+        <div className="login-container">
+      <div className="login-form">
+        <h2>Iniciar Sesión</h2>
+        <form onSubmit={manejarEnvio}>
+          <div className="input-group">
+            <input 
+              type="text" 
+              placeholder="email" 
+              value={email} 
+              onChange={(e) => setEmail(e.target.value)} 
+              required
+            />
+            <i className="fa fa-user icon"></i>
+          </div>
+          <div className="input-group">
+            <input 
+              type="password" 
+              placeholder="contraseña" 
+              value={contrasena} 
+              onChange={(e) => setContrasena(e.target.value)} 
+              required
+            />
+            <i className="fa fa-lock icon"></i>
+          </div>
+          
+          <button type="submit" className="login-button">Iniciar Sesión</button>
+          <p>No tienes una cuenta? <a href="/Registro">Regístrate</a></p>
+        </form>
+      </div>
+    </div>
     );
 };
 

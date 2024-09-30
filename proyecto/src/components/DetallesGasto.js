@@ -18,38 +18,45 @@ const DetallesGasto = () => {
     const fechasOrdenadas = Object.keys(gastosPorFecha).sort((a, b) => new Date(b) - new Date(a));
 
     return (
-        <div className="card mb-4">
-            <div className="card-body">
-                <h5 className="card-title">Detalles del Gasto</h5>
-                
-                {gasto && (
-                    <div className="mb-3">
-                        <h6>Último Gasto Registrado:</h6>
-                        <p>Título: {gasto.titulo}</p>
-                        <p>Monto: ${gasto.monto}</p>
-                        <p>Pagador: {gasto.pagador}</p>
-                        <p>Participantes: {gasto.participantes.join(', ')}</p>
-                        <p>Fecha: {new Date(gasto.fecha).toLocaleDateString()}</p>
-                    </div>
-                )}
+        <div className="container mt-4">
+            <div className="card shadow-sm">
+                <div className="card-body">
+                    <h5 className="card-title text-center mb-4">Detalles del Gasto</h5>
 
-                <h5 className="mt-4">Gastos Registrados por Fecha:</h5>
-                {fechasOrdenadas.length === 0 ? (
-                    <p>No hay gastos registrados.</p>
-                ) : (
-                    fechasOrdenadas.map(fecha => (
-                        <div key={fecha}>
-                            <h6>{fecha}</h6>
-                            <ul>
-                                {gastosPorFecha[fecha].map((gasto, index) => (
-                                    <li key={index}>
-                                        {gasto.titulo} - ${gasto.monto} - Pagado por: {gasto.pagador}
-                                    </li>
-                                ))}
-                            </ul>
+                    {gasto && (
+                        <div className="mb-4 p-3 rounded shadow-sm bg-light">
+                            <h6><i className="bi bi-cash-stack me-2"></i>Último Gasto Registrado</h6>
+                            <p><strong>Título:</strong> {gasto.titulo}</p>
+                            <p><strong>Monto:</strong> ${gasto.monto.toFixed(2)}</p>
+                            <p><strong>Pagador:</strong> {gasto.pagador}</p>
+                            <p><strong>Participantes:</strong> {gasto.participantes.join(', ')}</p>
+                            <p><strong>Fecha:</strong> {new Date(gasto.fecha).toLocaleDateString()}</p>
                         </div>
-                    ))
-                )}
+                    )}
+
+                    <h5 className="mt-4"><i className="bi bi-calendar3 me-2"></i>Gastos Registrados por Fecha</h5>
+                    {fechasOrdenadas.length === 0 ? (
+                        <p className="text-muted">No hay gastos registrados.</p>
+                    ) : (
+                        fechasOrdenadas.map(fecha => (
+                            <div key={fecha} className="mb-4">
+                                <h6 className="text-primary"><i className="bi bi-calendar-event me-2"></i>{fecha}</h6>
+                                <ul className="list-group">
+                                    {gastosPorFecha[fecha].map((gasto, index) => (
+                                        <li key={index} className="list-group-item d-flex justify-content-between align-items-center">
+                                            <span>
+                                                <strong>{gasto.titulo}</strong> - ${gasto.monto.toFixed(2)}
+                                                <br />
+                                                <small className="text-muted">Pagado por: {gasto.pagador}</small>
+                                            </span>
+                                            <i className="bi bi-person-circle"></i>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        ))
+                    )}
+                </div>
             </div>
         </div>
     );
