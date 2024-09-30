@@ -8,11 +8,11 @@ import DetallesGasto from './components/DetallesGasto';
 import Balances from './components/Balances';
 import UnirseViaje from './components/UnirseViaje';
 import VerDetalles from './components/VerDetalles';
-import 'bootstrap/dist/css/bootstrap.min.css'; // Optional: Import Bootstrap CSS
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const App = () => {
-    // Set to empty array to start with no balances
-    const yourBalancesArray = []; // No initial balances
+
+    const yourBalancesArray = []; 
 
     return (
         <Router>

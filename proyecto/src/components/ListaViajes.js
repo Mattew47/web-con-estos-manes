@@ -1,9 +1,8 @@
-// src/components/ListaViajes.js
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const ListaViajes = () => {
-    const navigate = useNavigate(); // Initialize the navigate function
+    const navigate = useNavigate();
     const viajes = JSON.parse(localStorage.getItem('viajes')) || [];
 
     return (
@@ -13,13 +12,13 @@ const ListaViajes = () => {
                 <div className="mb-2">
                     <button 
                         className="btn btn-warning me-2" 
-                        onClick={() => navigate('/creacion-viaje')} // Navigate to CreacionViaje
+                        onClick={() => navigate('/creacion-viaje')}
                     >
                         Crear Nueva Ruta
                     </button>
                     <button 
                         className="btn btn-info" 
-                        onClick={() => navigate('/unirse-viaje')} // Navigate to UnirseViaje
+                        onClick={() => navigate('/unirse-viaje')}
                     >
                         Unirse a un Viaje
                     </button>
@@ -27,10 +26,13 @@ const ListaViajes = () => {
                 <ul className="list-group">
                     {viajes.length > 0 ? (
                         viajes.map((viaje, index) => (
-                            <li key={index} className="list-group-item">
-                                <h6>{viaje.nombreViaje}</h6>
-                                <p>{viaje.descripcion}</p>
-                                <small>{viaje.fecha}</small>
+                            <li key={index} className="list-group-item d-flex align-items-center">
+                                <i className="bi bi-geo-alt me-2" style={{ fontSize: '1.5em' }}></i>
+                                <div>
+                                    <h6 className="mb-1">{viaje.nombreViaje}</h6>
+                                    <p className="mb-0">{viaje.descripcion}</p>
+                                    <small className="text-muted">{new Date(viaje.fecha).toLocaleDateString()}</small>
+                                </div>
                             </li>
                         ))
                     ) : (

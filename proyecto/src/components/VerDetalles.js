@@ -1,23 +1,46 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const VerDetalles = () => {
-    const [tituloGasto, setTituloGasto] = useState(''); // Title of the expense
-    const [monto, setMonto] = useState(''); // Amount of the expense
-    const [pagador, setPagador] = useState(''); // Person who paid
-    const [participantes, setParticipantes] = useState(''); // Participants of the trip
-    const navigate = useNavigate(); // Hook for navigation
+    const [tituloGasto, setTituloGasto] = useState('');
+    const [monto, setMonto] = useState('');
+    const [pagador, setPagador] = useState('');
+    const [participantes, setParticipantes] = useState('');
+    const navigate = useNavigate();
+    const location = useLocation();
 
     const manejarEnvio = (e) => {
         e.preventDefault();
+        
         const gasto = {
             titulo: tituloGasto,
-            monto,
+            monto: parseFloat(monto),
             pagador,
-            participantes: participantes.split(','), // Split participants into an array
+            participantes: participantes.split(',').map(participante => participante.trim()),
+            fecha: new Date().toISOString(),
         };
+        
+        const gastosPrevios = JSON.parse(localStorage.getItem('gastos')) || [];
+        gastosPrevios.push(gasto);
+        localStorage.setItem('gastos', JSON.stringify(gastosPrevios));
+        
         alert('Gasto registrado con éxito.');
-        // Here you can save the expense data to localStorage if needed
+        
+        setTituloGasto('');
+        setMonto('');
+        setPagador('');
+        setParticipantes('');
+    };
+
+    const verDetalles = () => {
+        const gastos = JSON.parse(localStorage.getItem('gastos')) || [];
+        if (gastos.length === 0) {
+            alert('No hay gastos registrados para mostrar.');
+            return;
+        }
+        
+        const ultimoGasto = gastos[gastos.length - 1];
+        navigate('/detalles-gasto', { state: { gasto: ultimoGasto } });
     };
 
     return (
@@ -68,9 +91,8 @@ const VerDetalles = () => {
                     <button type="submit" className="btn btn-success">Registrar Gasto</button>
                 </form>
 
-                {/* Navigation Buttons */}
                 <div className="mt-3">
-                    <button className="btn btn-info me-2" onClick={() => navigate('/detalles-gasto')}>Ver Detalles</button>
+                    <button className="btn btn-info me-2" onClick={verDetalles}>Ver Detalles</button>
                     <button className="btn btn-warning" onClick={() => navigate('/balances')}>Ver Balances</button>
                 </div>
             </div>
